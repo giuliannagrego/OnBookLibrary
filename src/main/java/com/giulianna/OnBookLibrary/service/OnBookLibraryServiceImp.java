@@ -2,45 +2,63 @@ package com.giulianna.OnBookLibrary.service;
 
 import com.giulianna.OnBookLibrary.dto.request.OnBookLibraryRequestDTO;
 import com.giulianna.OnBookLibrary.dto.response.OnBookLibraryResponseDTO;
+import com.giulianna.OnBookLibrary.entity.OnBookLibrary;
 import com.giulianna.OnBookLibrary.repository.OnBookLibraryRepository;
+import com.giulianna.OnBookLibrary.util.OnBookLibraryMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.List;
 
 @Service
 @Primary
+@RequiredArgsConstructor
 public class OnBookLibraryServiceImp implements OnBookLibraryService {
 
-    private OnBookLibraryRepository onBookLibraryRepository;
+    private final OnBookLibraryRepository onBookLibraryRepository;
+
+    private final OnBookLibraryMapper onBookLibraryMapper;
 
     @Override
     public OnBookLibraryResponseDTO findById(Long id) {
-        Book book = returnBook(id);
+        return onBookLibraryMapper.toOnBookLibraryDTO(returnOnBookLibrary(id));
     }
 
     @Override
     public List<OnBookLibraryResponseDTO> findAll() {
-        return null;
+        return onBookLibraryMapper.toOnBookLibraryDTO(onBookLibraryRepository.findAll());
     }
 
     @Override
     public OnBookLibraryResponseDTO register(OnBookLibraryRequestDTO onBookLibraryDTO) {
-        return null;
+
+        OnBookLibrary onBookLibrary = onBookLibraryMapper.toOnBookLibrary(onBookLibraryDTO);
+
+        onBookLibraryRepository.save(onBookLibrary);
+
+        return onBookLibraryMapper.toOnBookLibraryDTO(onBookLibraryRepository.save(onBookLibrary));
     }
 
     @Override
-    public OnBookLibraryResponseDTO update(OnBookLibraryRequestDTO onBookLibraryDTO, Long id) {
-        Book book = returnBook(id);
+    public OnBookLibraryResponseDTO update(Long id, OnBookLibraryRequestDTO onBookLibraryDTO) {
+        OnBookLibrary onBookLibrary = returnOnBookLibrary(id);
+
+        onBookLibraryMapper.updateOnBookLibraryData(onBookLibrary,onBookLibraryDTO);
+
+        onBookLibraryRepository.save(onBookLibrary);
+
+        return onBookLibraryMapper.toOnBookLibraryDTO(onBookLibraryRepository.save(onBookLibrary));
     }
 
     @Override
     public String delete(Long id) {
-        return null;
+        onBookLibraryRepository.deleteById(id);
+
+        return "ID "+id+" deleted";
     }
 
-    private Book returnBook(Long id) {
-        onBookLibraryRepository.findById(id).orElseThrow(()-> new RuntimeException("ID wasn't found on database"));
+    private OnBookLibrary returnOnBookLibrary(Long id) {
+        return onBookLibraryRepository.findById(id).orElseThrow(()-> new RuntimeException("ID wasn't found on database"));
     }
 }

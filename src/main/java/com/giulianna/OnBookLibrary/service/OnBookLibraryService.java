@@ -13,7 +13,7 @@ public interface OnBookLibraryService {
 
     OnBookLibraryResponseDTO register(OnBookLibraryRequestDTO onBookLibraryDTO);
 
-    OnBookLibraryResponseDTO update(OnBookLibraryRequestDTO onBookLibraryDTO, Long id);
+    OnBookLibraryResponseDTO update(Long id, OnBookLibraryRequestDTO onBookLibraryDTO);
 
     String delete(Long id);
 }
