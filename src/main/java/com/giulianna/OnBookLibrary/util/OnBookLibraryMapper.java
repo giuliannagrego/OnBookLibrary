@@ -3,10 +3,11 @@ package com.giulianna.OnBookLibrary.util;
 import com.giulianna.OnBookLibrary.dto.request.OnBookLibraryRequestDTO;
 import com.giulianna.OnBookLibrary.dto.response.OnBookLibraryResponseDTO;
 import com.giulianna.OnBookLibrary.entity.OnBookLibrary;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Component
 public class OnBookLibraryMapper {
 
     public OnBookLibrary toOnBookLibrary(OnBookLibraryRequestDTO onBookLibraryDTO) {
