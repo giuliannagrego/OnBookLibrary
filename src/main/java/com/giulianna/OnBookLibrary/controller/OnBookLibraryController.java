@@ -28,7 +28,7 @@ public class OnBookLibraryController {
         return ResponseEntity.ok().body(onBookLibraryService.findAll());
     }
 
-    @PostMapping
+    @PostMapping(value = "/create_user")
     public ResponseEntity<OnBookLibraryResponseDTO> register (@RequestBody OnBookLibraryRequestDTO onBookLibraryRequestDTO, UriComponentsBuilder uriBuilder) {
 
         OnBookLibraryResponseDTO onBookLibraryResponseDTO = onBookLibraryService.register(onBookLibraryRequestDTO);
@@ -38,7 +38,7 @@ public class OnBookLibraryController {
         return ResponseEntity.created(uri).body(onBookLibraryResponseDTO);
     }
 
-    @PutMapping
+    @PutMapping(value = "/update/{id}")
     public ResponseEntity<OnBookLibraryResponseDTO> update(@RequestBody OnBookLibraryRequestDTO onBookLibraryDTO, @PathVariable(name = "id" ) Long id) {
         return  ResponseEntity.ok().body(onBookLibraryService.update(id, onBookLibraryDTO));
     }
