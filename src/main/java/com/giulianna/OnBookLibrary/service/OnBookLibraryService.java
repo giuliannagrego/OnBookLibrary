@@ -56,4 +56,32 @@ public class OnBookLibraryService {
     private OnBookLibrary returnOnBookLibrary(Long id) {
         return onBookLibraryRepository.findById(id).orElseThrow(()-> new RuntimeException("ID wasn't found on database"));
     }
+
+
+    public boolean isbnValidator(String isbn) {
+
+            String.replaceAll("\\D", "");
+
+            int soma = 0;
+
+            for (int i = 0; i < isbn.length() - 1; i++) {
+                int numero = Character.getNumericValue(isbn.charAt(i));
+                System.out.println(numero);
+
+                if (i % 2 == 0) {
+                    soma  = soma + numero; }
+                else{
+                    soma = soma + numero*3;
+                }
+
+                if ((soma + Character.getNumericValue(isbn.charAt(isbn.length()))) % 10 == 0) {
+                    System.out.println("ISBN válido");
+                    return true;
+                } else {
+                    System.out.println("ISBN inválido, verifique se o ISBN atende aos requisitos e tente novamente");
+                    return false;
+                }
+            }
+
+    }
 }

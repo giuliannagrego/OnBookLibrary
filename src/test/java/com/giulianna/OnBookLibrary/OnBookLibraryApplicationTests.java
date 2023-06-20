@@ -10,4 +10,16 @@ class OnBookLibraryApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	public boolean isbnValidator(String isbn) {
+		String isbn = "12345"
+		String.replaceAll("\\D", "");
+
+		for (int i = 0; i < isbn.length(); i++) {
+			int numero = Character.getNumericValue(isbn.charAt(i));
+			System.out.println(numero);
+
+
+		}
+
 }

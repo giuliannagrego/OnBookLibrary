@@ -20,7 +20,7 @@ public class OnBookLibrary {
     private String title;
 
     @Column(name = "isbn", nullable = false, unique = true)
-    private Integer isbn;
+    private String isbn;
 
     @Column(name = "author", nullable = false)
     private String author;

@@ -10,7 +10,7 @@ public class OnBookLibraryResponseDTO {
 
     private String title;
 
-    private Integer isbn;
+    private String isbn;
 
     private String author;
 
